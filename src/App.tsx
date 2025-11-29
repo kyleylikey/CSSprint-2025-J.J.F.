@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ReportProvider } from './context/ReportContext';
+import { LedgerProvider } from './context/LedgerContext';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import EmployeeDashboard from './pages/Employee/Dashboard';
 import SubmitReport from './pages/Employee/Report';
 import MyReports from './pages/Employee/MyReports';
+import LedgerApp from './pages/LedgerApp';
 import ModeratorDashboard from './pages/Moderator/Dashboard';
 import ReviewReports from './pages/Moderator/Reports';
 import ManageCases from './pages/Moderator/Cases';
@@ -111,6 +113,9 @@ function AppRoutes() {
             </ProtectedRoute>
           } />
 
+          {/* Standalone Ledger Application */}
+          <Route path="/ledger" element={<LedgerApp />} />
+
           {/* Default route */}
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
@@ -125,7 +130,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <ReportProvider>
-          <AppRoutes />
+          <LedgerProvider>
+            <AppRoutes />
+          </LedgerProvider>
         </ReportProvider>
       </AuthProvider>
     </BrowserRouter>

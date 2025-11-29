@@ -32,7 +32,7 @@ export default function Login() {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1>🛡️ Ethics Monitor</h1>
+          <h1>⚖️ Justifiable Judgment Flagging</h1>
           <p>Corporate Integrity Platform</p>
         </div>
         
@@ -86,6 +86,15 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      {/* Standalone Ledger App Button */}
+      <button 
+        className="ledger-app-btn"
+        onClick={() => navigate('/ledger')}
+        title="Open QuickBooks Lite"
+      >
+        💰 QuickBooks Lite
+      </button>
     </div>
   );
 }
