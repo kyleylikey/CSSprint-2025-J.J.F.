@@ -1,8 +1,22 @@
 import { useAuth } from '../../context/AuthContext';
+import { useReports } from '../../context/ReportContext';
 import './Dashboard.css';
 
 export default function EmployeeDashboard() {
   const { user } = useAuth();
+  const { reports } = useReports();
+  
+  // Get user's reports
+  const userReports = user 
+    ? reports.filter(r => r.submitterId === user.id || r.submittedBy === user.name)
+    : [];
+  
+  const totalSubmitted = userReports.length;
+  const pendingReview = userReports.filter(r => 
+    r.status === 'new' || r.status === 'reviewing' || r.status === 'pending'
+  ).length;
+  const resolved = userReports.filter(r => r.status === 'resolved').length;
+  const reportsWithUpdates = userReports.filter(r => r.notes.length > 0).length;
 
   return (
     <div className="dashboard">
@@ -15,29 +29,29 @@ export default function EmployeeDashboard() {
         <div className="stat-card">
           <div className="stat-icon">📝</div>
           <div className="stat-content">
-            <h3>3</h3>
+            <h3>{totalSubmitted}</h3>
             <p>Reports Submitted</p>
           </div>
         </div>
         <div className="stat-card">
           <div className="stat-icon">⏳</div>
           <div className="stat-content">
-            <h3>1</h3>
+            <h3>{pendingReview}</h3>
             <p>Pending Review</p>
           </div>
         </div>
         <div className="stat-card">
           <div className="stat-icon">✅</div>
           <div className="stat-content">
-            <h3>2</h3>
+            <h3>{resolved}</h3>
             <p>Resolved</p>
           </div>
         </div>
         <div className="stat-card">
           <div className="stat-icon">🔔</div>
           <div className="stat-content">
-            <h3>1</h3>
-            <p>New Updates</p>
+            <h3>{reportsWithUpdates}</h3>
+            <p>Reports with Updates</p>
           </div>
         </div>
       </div>
@@ -58,27 +72,35 @@ export default function EmployeeDashboard() {
         <div className="content-section">
           <h2>Recent Activity</h2>
           <div className="activity-list">
-            <div className="activity-item">
-              <span className="activity-icon">🔵</span>
-              <div className="activity-content">
-                <p>Your report #1023 is under review</p>
-                <span className="activity-time">2 hours ago</span>
+            {userReports.slice(0, 3).map(report => (
+              <div key={report.id} className="activity-item">
+                <span className="activity-icon">
+                  {report.status === 'resolved' ? '🟢' : 
+                   report.status === 'reviewing' ? '🔵' : 
+                   report.status === 'escalated' ? '🟠' : '🟡'}
+                </span>
+                <div className="activity-content">
+                  <p>
+                    {report.status === 'resolved' 
+                      ? `Report ${report.id} has been resolved`
+                      : report.status === 'reviewing'
+                      ? `Report ${report.id} is under review`
+                      : report.status === 'escalated'
+                      ? `Report ${report.id} has been escalated`
+                      : `Report ${report.id} is pending`}
+                  </p>
+                  <span className="activity-time">{report.id}</span>
+                </div>
               </div>
-            </div>
-            <div className="activity-item">
-              <span className="activity-icon">🟢</span>
-              <div className="activity-content">
-                <p>Report #1021 has been resolved</p>
-                <span className="activity-time">1 day ago</span>
+            ))}
+            {userReports.length === 0 && (
+              <div className="activity-item">
+                <span className="activity-icon">ℹ️</span>
+                <div className="activity-content">
+                  <p>No reports submitted yet</p>
+                </div>
               </div>
-            </div>
-            <div className="activity-item">
-              <span className="activity-icon">🟡</span>
-              <div className="activity-content">
-                <p>HR requested additional information for report #1020</p>
-                <span className="activity-time">3 days ago</span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 

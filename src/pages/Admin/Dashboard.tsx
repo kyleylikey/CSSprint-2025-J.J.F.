@@ -1,8 +1,11 @@
 import { useAuth } from '../../context/AuthContext';
+import { useReports } from '../../context/ReportContext';
 import './Dashboard.css';
 
 export default function AdminDashboard() {
   const { user } = useAuth();
+  const { getStatistics } = useReports();
+  const stats = getStatistics();
 
   return (
     <div className="dashboard admin-dashboard">
@@ -22,21 +25,21 @@ export default function AdminDashboard() {
         <div className="stat-card">
           <div className="stat-icon">📊</div>
           <div className="stat-content">
-            <h3>89</h3>
+            <h3>{stats.thisMonth}</h3>
             <p>Reports This Month</p>
           </div>
         </div>
         <div className="stat-card">
           <div className="stat-icon">⚡</div>
           <div className="stat-content">
-            <h3>94%</h3>
+            <h3>{stats.resolutionRate}%</h3>
             <p>Resolution Rate</p>
           </div>
         </div>
         <div className="stat-card">
           <div className="stat-icon">🔒</div>
           <div className="stat-content">
-            <h3>12</h3>
+            <h3>{stats.inProgress}</h3>
             <p>Active Cases</p>
           </div>
         </div>
