@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useReports } from '../../context/ReportContext';
 import './Dashboard.css';
@@ -60,12 +61,12 @@ export default function EmployeeDashboard() {
         <div className="content-section">
           <h2>Quick Actions</h2>
           <div className="action-buttons">
-            <a href="/employee/report" className="action-btn primary">
+            <Link to="/employee/report" className="action-btn primary">
               📝 Submit New Report
-            </a>
-            <a href="/employee/my-reports" className="action-btn secondary">
+            </Link>
+            <Link to="/employee/my-reports" className="action-btn secondary">
               📋 View My Reports
-            </a>
+            </Link>
           </div>
         </div>
 

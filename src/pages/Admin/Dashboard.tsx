@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useReports } from '../../context/ReportContext';
 import './Dashboard.css';
@@ -100,26 +101,26 @@ export default function AdminDashboard() {
         <div className="content-section">
           <h2>📋 Quick Actions</h2>
           <div className="admin-actions">
-            <a href="/admin/users" className="admin-action-card">
+            <Link to="/admin/users" className="admin-action-card">
               <span className="action-icon">👤</span>
               <h3>User Management</h3>
               <p>Add, edit, or remove users</p>
-            </a>
-            <a href="/admin/analytics" className="admin-action-card">
+            </Link>
+            <Link to="/admin/analytics" className="admin-action-card">
               <span className="action-icon">📊</span>
               <h3>Analytics</h3>
               <p>View detailed reports and trends</p>
-            </a>
-            <a href="/admin/settings" className="admin-action-card">
+            </Link>
+            <Link to="/admin/settings" className="admin-action-card">
               <span className="action-icon">⚙️</span>
               <h3>System Settings</h3>
               <p>Configure system parameters</p>
-            </a>
-            <a href="#" className="admin-action-card">
+            </Link>
+            <Link to="#" className="admin-action-card">
               <span className="action-icon">📧</span>
               <h3>Notifications</h3>
               <p>Manage email templates</p>
-            </a>
+            </Link>
           </div>
         </div>
 

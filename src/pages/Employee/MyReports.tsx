@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useReports } from '../../context/ReportContext';
 import type { Report } from '../../context/ReportContext';
@@ -92,9 +93,9 @@ export default function MyReports() {
       {userReports.length === 0 && (
         <div className="no-reports">
           <p>You haven't submitted any reports yet.</p>
-          <a href="/employee/report" className="btn-primary">
+          <Link to="/employee/report" className="btn-primary">
             Submit Your First Report
-          </a>
+          </Link>
         </div>
       )}
     </div>
