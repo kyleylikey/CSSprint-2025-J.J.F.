@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ReportProvider } from './context/ReportContext';
+import { LedgerProvider } from './context/LedgerContext';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import EmployeeDashboard from './pages/Employee/Dashboard';
 import SubmitReport from './pages/Employee/Report';
 import MyReports from './pages/Employee/MyReports';
+import Ledger from './pages/Employee/Ledger';
 import ModeratorDashboard from './pages/Moderator/Dashboard';
 import ReviewReports from './pages/Moderator/Reports';
 import ManageCases from './pages/Moderator/Cases';
@@ -71,6 +73,11 @@ function AppRoutes() {
               <MyReports />
             </ProtectedRoute>
           } />
+          <Route path="/employee/ledger" element={
+            <ProtectedRoute allowedRoles={['employee']}>
+              <Ledger />
+            </ProtectedRoute>
+          } />
 
           {/* Moderator Routes */}
           <Route path="/moderator/dashboard" element={
@@ -125,7 +132,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <ReportProvider>
-          <AppRoutes />
+          <LedgerProvider>
+            <AppRoutes />
+          </LedgerProvider>
         </ReportProvider>
       </AuthProvider>
     </BrowserRouter>

@@ -27,6 +27,7 @@ export default function Navbar() {
             <Link to="/employee/dashboard">Dashboard</Link>
             <Link to="/employee/report">Submit Report</Link>
             <Link to="/employee/my-reports">My Reports</Link>
+            <Link to="/employee/ledger">Ledger</Link>
           </>
         )}
         
